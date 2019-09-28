@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+  <link rel="alternate" href="/atom.xml" title="程序员杂碎念" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":"ture","trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="开源分布式事务中间件 Fescar 自1月10日上线v0.1版本以来，受到了开发者们的极大关注（watch299，star3604，fork799，社区讨论的issue79，数据统计于1月23日10:12），可见，天下苦分布式事务久矣。为此，我们收集了大家在社区（Github）和社群（钉钉群&amp;amp;微信群）关注的核心问题，总结如下，并给出回复。">
+<meta name="keywords" content="测试5">
+<meta property="og:type" content="article">
+<meta property="og:title" content="测试5">
+<meta property="og:url" content="http://www.pangadam.com/2019/09/28/测试5/index.html">
+<meta property="og:site_name" content="程序员杂碎念">
+<meta property="og:description" content="开源分布式事务中间件 Fescar 自1月10日上线v0.1版本以来，受到了开发者们的极大关注（watch299，star3604，fork799，社区讨论的issue79，数据统计于1月23日10:12），可见，天下苦分布式事务久矣。为此，我们收集了大家在社区（Github）和社群（钉钉群&amp;amp;微信群）关注的核心问题，总结如下，并给出回复。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://yqfile.alicdn.com/dee72a7b937478be3b692b00424c242d954e1be9.png">
+<meta property="og:image" content="https://yqfile.alicdn.com/9b2f10748d299633e081caadabf1c24f772bfa56.png">
+<meta property="og:image" content="https://yqfile.alicdn.com/c14f6b3c415247d72bd320752ac32c9600062843.png">
+<meta property="og:image" content="https://yqfile.alicdn.com/3b0a2b888fac54dee34840f5cf6f3db2dad74504.png">
+<meta property="og:updated_time" content="2019-09-28T11:25:55.552Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="测试5">
+<meta name="twitter:description" content="开源分布式事务中间件 Fescar 自1月10日上线v0.1版本以来，受到了开发者们的极大关注（watch299，star3604，fork799，社区讨论的issue79，数据统计于1月23日10:12），可见，天下苦分布式事务久矣。为此，我们收集了大家在社区（Github）和社群（钉钉群&amp;amp;微信群）关注的核心问题，总结如下，并给出回复。">
+<meta name="twitter:image" content="https://yqfile.alicdn.com/dee72a7b937478be3b692b00424c242d954e1be9.png">
+  <link rel="canonical" href="http://www.pangadam.com/2019/09/28/测试5/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>测试5 | 程序员杂碎念</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员杂碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://www.pangadam.com/2019/09/28/测试5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="pangadam">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员杂碎念">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">测试5
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-28 19:02:17 / 修改时间：19:25:55" itemprop="dateCreated datePublished" datetime="2019-09-28T19:02:17+08:00">2019-09-28</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/分类测试/" itemprop="url" rel="index"><span itemprop="name">分类测试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>开源分布式事务中间件 Fescar 自1月10日上线v0.1版本以来，受到了开发者们的极大关注（watch299，star3604，fork799，社区讨论的issue79，数据统计于1月23日10:12），可见，天下苦分布式事务久矣。</p><p>为此，我们收集了大家在社区（Github）和社群（钉钉群&amp;微信群）关注的核心问题，总结如下，并给出回复。</p><a id="more"></a>
+
+<p><a href="https://yqfile.alicdn.com/dee72a7b937478be3b692b00424c242d954e1be9.png" target="_blank" rel="noopener"><img src="https://yqfile.alicdn.com/dee72a7b937478be3b692b00424c242d954e1be9.png" alt="_2019_01_17_9_33_47"></a>_2019_01_17_9_33_47</p>
+<blockquote>
+<p>Q1：Fescar 的发展经历了哪些历程？和阿里云全局事务服务GTS之间是什么关系？</p>
+</blockquote>
+<p>A1：阿里巴巴是国内最早一批进行应用分布式（微服务化）改造的企业，所以很早就遇到微服务架构下的分布式事务问题。</p>
+<ul>
+<li>2014 年</li>
+</ul>
+<p>阿里巴巴中间件团队发布TXC（Taobao Transaction Constructor），为集团内应用提供分布式事务服务。</p>
+<ul>
+<li>2016 年</li>
+</ul>
+<p>TXC 经过产品化改造，以GTS（Global TransactionService）的身份上线阿里云，成为当时业界唯一一款云上分布式事务产品，以阿里云公有云或专有云解决方案的形式，交付给众多外部客户。</p>
+<ul>
+<li>2019 年</li>
+</ul>
+<p>基于 TXC 和 GTS 的技术积累，阿里巴巴中间件团队发起了开源项目Fescar（Fast &amp; EaSy Commit And Rollback, FESCAR），和社区一起建设这个分布式事务解决方案。</p>
+<p>TXC/GTS/Fescar一脉相承，为解决微服务架构下的分布式事务问题交出了一份与众不同的答卷。</p>
+<blockquote>
+<p>Q2：Fescar 有哪些适用场景？</p>
+</blockquote>
+<p>A2：Fescar 的愿景是让分布式事务的使用像现在本地事务的使用一样简单、高效，最终的目标是希望可以适用于所有的分布式事务场景。目前，核心的 AT 模式适用于构建于支持本地 ACID 事务的关系型数据库。非关系型数据库类资源的管理，通过 MT 模式来支持。AT 模式与 MT 模式完全兼容，所以可以在同一个分布式事务中，同时管理两类资源。</p>
+<blockquote>
+<p>Q3：目前有已经有一些其他的分布式事务开源方案，Fescar 和他们之间有哪些区别？和JTA支持分布式事务有哪些区别？</p>
+</blockquote>
+<p>A3：既有的分布式事务解决方案按照对业务侵入性分为两类，即：对业务无侵入的和对业务有侵入的。</p>
+<ul>
+<li>业务无侵入的方案</li>
+</ul>
+<p>既有的主流分布式事务解决方案中，对业务无侵入的只有基于 XA 的方案（注：问题中提到的 JTA 是XA 方案的 Java 版本），但应用XA 方案存在 3 个方面的问题：</p>
+<p>1、要求数据库提供对 XA 的支持。如果遇到不支持 XA（或支持得不好，比如 MySQL 5.7 以前的版本）的数据库，则不能使用。</p>
+<p>2、受协议本身的约束，事务资源（数据记录、数据库连接）的锁定周期长。长周期的资源锁定从业务层面来看，往往是不必要的，而因为事务资源的管理器是数据库本身，应用层无法插手。这样形成的局面就是，基于 XA 的应用往往性能会比较差，而且很难优化。</p>
+<p>3、已经落地的基于 XA 的分布式解决方案，都依托于重量级的应用服务器（Tuxedo/WebLogic/WebSphere 等)，这是不适用于微服务架构的。</p>
+<ul>
+<li>侵入业务的方案</li>
+</ul>
+<p>实际上，最初分布式事务只有 XA 这个唯一方案。XA 是完备的，但在实践过程中，由于种种原因（包含但不限于上面提到的3 点）往往不得不放弃，转而从业务层面着手来解决分布式事务问题。比如：</p>
+<ul>
+<li>基于可靠消息的最终一致性方案</li>
+<li>TCC</li>
+<li>Saga</li>
+</ul>
+<p>都属于这一类。这些方案的具体机制在这里不做展开，网上这方面的论述文章非常多。总之，这些方案都要求在应用的业务层面把分布式事务技术约束考虑到设计中，通常每一个服务都需要设计实现正向和反向的幂等接口。这样的设计约束，往往会导致很高的研发和维护成本。</p>
+<p>不可否认，侵入业务的分布式事务方案都经过大量实践验证，能有效解决问题，在各行种业的业务应用系统中起着重要作用。但回到原点来思考，这些方案的采用实际上都是迫于无奈。</p>
+<p>回到问题：</p>
+<p>与基于消息的最终一致、TCC、Saga等业务逻辑侵入方案的不同在于，Fescar 的设计初衷就是保持对业务的非侵入性，不要求业务层面按照分布式事务的特定场景来设计正向和反向的两套（甚至多套）业务逻辑。这方面的差别就不展开了。</p>
+<p>与 XA 的区别在于，设计了一套不同与 XA 的两阶段协议，在保持对业务不侵入的前提下，保证良好的性能，也避免了对底层数据库协议支持的要求。可以看作是一套轻量级的XA 机制。具体的差别如下：</p>
+<ul>
+<li>架构层次</li>
+</ul>
+<p><a href="https://yqfile.alicdn.com/9b2f10748d299633e081caadabf1c24f772bfa56.png" target="_blank" rel="noopener"><img src="https://yqfile.alicdn.com/9b2f10748d299633e081caadabf1c24f772bfa56.png" alt="fescar"></a>fescar</p>
+<p>XA方案的 RM 实际上是在数据库层，RM本质上就是数据库自身（通过提供支持 XA 的驱动程序来供应用使用）。</p>
+<p>而 Fescar 的RM 是以二方包的形式作为中间件层部署在应用程序这一侧的，不依赖与数据库本身对协议的支持，当然也不需要数据库支持XA 协议。这点对于微服务化的架构来说是非常重要的：应用层不需要为本地事务和分布式事务两类不同场景来适配两套不同的数据库驱动。</p>
+<p>这个设计，剥离了分布式事务方案对数据库在协议支持上的要求。</p>
+<ul>
+<li>两阶段提交</li>
+</ul>
+<p>先来看一下 XA 的2PC 过程。</p>
+<p><a href="https://yqfile.alicdn.com/c14f6b3c415247d72bd320752ac32c9600062843.png" target="_blank" rel="noopener"><img src="https://yqfile.alicdn.com/c14f6b3c415247d72bd320752ac32c9600062843.png" alt="fescar2"></a>fescar2</p>
+<p>无论 Phase2 的决议是commit 还是 rollback，事务性资源的锁都要保持到Phase2 完成才释放。</p>
+<p>再看 Fescar 的2PC 过程。</p>
+<p><a href="https://yqfile.alicdn.com/3b0a2b888fac54dee34840f5cf6f3db2dad74504.png" target="_blank" rel="noopener"><img src="https://yqfile.alicdn.com/3b0a2b888fac54dee34840f5cf6f3db2dad74504.png" alt="fescar3"></a>fescar3</p>
+<p>分支事务中数据的 本地锁 由本地事务管理，在分支事务 Phase1 结束时释放。</p>
+<p>同时，随着本地事务结束，连接 也得以释放。</p>
+<p>分支事务中数据的 全局锁 在事务协调器侧管理，在决议 Phase2 全局提交时，全局锁马上</p>
+<p>可以释放。只有在决议全局回滚的情况下，全局锁 才被持有至分支的 Phase2 结束。</p>
+<p>这个设计，极大地减少了分支事务对资源（数据和连接）的锁定时间，给整体并发和吞吐的提升提供了基础。</p>
+<blockquote>
+<p>Q4：Fescar 支持 Dubbo 的哪些版本？</p>
+</blockquote>
+<p>A4：所有版本。</p>
+<blockquote>
+<p>Q5：Fescar 支持 Spring Cloud么？</p>
+</blockquote>
+<p>A5：Fescar 与微服务框架的接口点在于，需要把事务的唯一标识 XID（一个字符串）通过微服务框架的服务调用间调用的机制中，透明地传递，并通过 Fescar 的 API 来绑定（或解绑）到应用的线程上下文中。（机制可以参考内置的对 Dubbo 支持的实现 com.alibaba.fescar.dubbo.TransactionPropagationFilter）所以，本质上这个问题不是支不支持 Spring Cloud，而是如何支持 Spring Cloud 中选用的服务调用机制。目前正在和 Spring Cloud Alibaba 的同学合作，准备在v0.5.x版本（或更早）发布对 Spring Cloud默认的支持。同时，非常欢迎社区的朋友参与进来，贡献包括 Spring Cloud 在内的各类微服务框架的支持。</p>
+<blockquote>
+<p>Q6：Fescar 是否支持本地跨库多数据源？除了关系型数据库，是否还支持NoSQL数据库？</p>
+</blockquote>
+<p>A6：本地跨多数据源同样是支持的，在 Fescar 的架构中，同一个服务中的多个数据源与跨服务的多个数据源，没有本质区别。AT 模式目前仅限于对关系型数据库的支持（本身具备ACID 事务支持），后面会发布出来的 MT 模式可以支持 NoSQL 这类本身不具备本地事务支持的资源。</p>
+<blockquote>
+<p>Q7：Fescar 现在开源的是AT模式，MT模式暂时不支持，什么时候会开源？</p>
+</blockquote>
+<p>A7：当前 0.1.0 版本只是把 Fescar 最核心的 AT 模式的最小集发布出来，一方面是按开源的规划和架构的重构进展，另一方面也是希望通过最小集版本，让用户和开发者社区更容易理解到我们核心的设计思路，让更多人比较容易地参与进来建设，而不是完全由阿里巴巴主导，仅仅把我们的整套</p>
+
+    </div>
+
+    
+    
+    
+	
+	<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/测试5/" rel="tag"><i class="fa fa-tag"></i> 测试5</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/28/测试4/" rel="next" title="测试4">
+                  <i class="fa fa-chevron-left"></i> 测试4
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/28/测试6/" rel="prev" title="测试6">
+                  测试6 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+	  
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+	  
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">pangadam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yourname" title="GitHub &rarr; https://github.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:pangadam@163.com" title="E-Mail &rarr; mailto:pangadam@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com/yourname" title="Weibo &rarr; https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pangadam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a></div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

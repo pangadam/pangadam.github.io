@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+  <link rel="alternate" href="/atom.xml" title="程序员杂碎念" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":"ture","trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="不仅简化了 Dubbo 基于 xml 配置的方式，也提高了日常开发效率，甚至提升了工作幸福感。为了节省亲爱的读者您的时间，请根据以下2点提示来阅读本文，以提高您的阅读收获效率哦。 如果您只有简单的 Java 基础和 Maven 经验，而不熟悉 Dubbo，本文档将帮助您从零开始使用 Spring Boot 开发 Dubbo 服务，并使用 EDAS 服务注册中心实现服务注册与发现。  如果您熟悉 D">
+<meta name="keywords" content="测试6">
+<meta property="og:type" content="article">
+<meta property="og:title" content="测试6">
+<meta property="og:url" content="http://www.pangadam.com/2019/09/28/测试6/index.html">
+<meta property="og:site_name" content="程序员杂碎念">
+<meta property="og:description" content="不仅简化了 Dubbo 基于 xml 配置的方式，也提高了日常开发效率，甚至提升了工作幸福感。为了节省亲爱的读者您的时间，请根据以下2点提示来阅读本文，以提高您的阅读收获效率哦。 如果您只有简单的 Java 基础和 Maven 经验，而不熟悉 Dubbo，本文档将帮助您从零开始使用 Spring Boot 开发 Dubbo 服务，并使用 EDAS 服务注册中心实现服务注册与发现。  如果您熟悉 D">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-28T11:26:24.988Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="测试6">
+<meta name="twitter:description" content="不仅简化了 Dubbo 基于 xml 配置的方式，也提高了日常开发效率，甚至提升了工作幸福感。为了节省亲爱的读者您的时间，请根据以下2点提示来阅读本文，以提高您的阅读收获效率哦。 如果您只有简单的 Java 基础和 Maven 经验，而不熟悉 Dubbo，本文档将帮助您从零开始使用 Spring Boot 开发 Dubbo 服务，并使用 EDAS 服务注册中心实现服务注册与发现。  如果您熟悉 D">
+  <link rel="canonical" href="http://www.pangadam.com/2019/09/28/测试6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>测试6 | 程序员杂碎念</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员杂碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://www.pangadam.com/2019/09/28/测试6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="pangadam">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员杂碎念">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">测试6
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-28 19:02:22 / 修改时间：19:26:24" itemprop="dateCreated datePublished" datetime="2019-09-28T19:02:22+08:00">2019-09-28</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/分类测试/" itemprop="url" rel="index"><span itemprop="name">分类测试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>不仅简化了 Dubbo 基于 xml 配置的方式，也提高了日常开发效率，甚至提升了工作幸福感。</p><p>为了节省亲爱的读者您的时间，请根据以下2点提示来阅读本文，以提高您的阅读收获效率哦。</p><ul>
+<li><p>如果您只有简单的 Java 基础和 Maven 经验，而不熟悉 Dubbo，本文档将帮助您从零开始使用 Spring Boot 开发 Dubbo 服务，并使用 EDAS 服务注册中心实现服务注册与发现。</p>
+</li>
+<li><p>如果您熟悉 Dubbo，可以选择性地阅读相关章节。</p>
+</li>
+</ul><a id="more"></a>
+
+
+<h3 id="为什么使用-Spring-Boot-开发-Dubbo-应用"><a href="#为什么使用-Spring-Boot-开发-Dubbo-应用" class="headerlink" title="为什么使用 Spring Boot 开发 Dubbo 应用"></a>为什么使用 Spring Boot 开发 Dubbo 应用</h3><p>Spring Boot 使用极简的一些配置，就能快速搭建一个基于 Spring 的应用，提高的日常的开发效率。因此，如果您使用 Spring Boot 来开发基于 Dubbo 的应用，简化了 Bubbo 基于 xml 配置的方式，提高了日常开发效率，提升了工作幸福感。</p>
+<h3 id="为什么使用-EDAS-服务注册中心"><a href="#为什么使用-EDAS-服务注册中心" class="headerlink" title="为什么使用 EDAS 服务注册中心"></a>为什么使用 EDAS 服务注册中心</h3><p>EDAS 服务注册中心实现了 Dubbo 所提供的 SPI 标准的<a href="http://dubbo.apache.org/zh-cn/docs/dev/impls/registry.html?spm=a2c4g.11186623.2.13.41344822aqNoSX" target="_blank" rel="noopener">注册中心扩展</a>，能够完整地支持 Dubbo 服务注册、<a href="http://dubbo.apache.org/zh-cn/docs/user/demos/routing-rule.html?spm=a2c4g.11186623.2.14.41344822aqNoSX" target="_blank" rel="noopener">路由规则</a>、<a href="http://dubbo.apache.org/zh-cn/docs/user/demos/config-rule.html?spm=a2c4g.11186623.2.15.41344822aqNoSX" target="_blank" rel="noopener">配置规则功能</a>。</p>
+<p>EDAS 服务注册中心能够完全代替 ZooKeeper 和 Redis，作为您 Dubbo 服务的注册中心。同时，与 ZooKeeper 和 Redis 相比，还具有以下优势：</p>
+<ul>
+<li>EDAS 服务注册中心为共享组件，节省了您运维、部署 ZooKeeper 等组件的机器成本。</li>
+<li>EDAS 服务注册中心在通信过程中增加了鉴权加密功能，为您的服务注册链路进行了安全加固。</li>
+<li>EDAS 服务注册中心与 EDAS 其他组件紧密结合，为您提供一整套的微服务解决方案。</li>
+</ul>
+<h3 id="本地开发"><a href="#本地开发" class="headerlink" title="本地开发"></a>本地开发</h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><ul>
+<li>下载、启动及配置轻量级配置中心。</li>
+</ul>
+<p>为了便于本地开发，EDAS 提供了一个包含了 EDAS 服务注册中心基本功能的轻量级配置中心。基于轻量级配置中心开发的应用无需修改任何代码和配置就可以部署到云端的 EDAS 中。</p>
+<p>请您参考 <a href="https://help.aliyun.com/document_detail/44163.html?spm=a2c4g.11186623.2.17.4fa073571VPegl" target="_blank" rel="noopener">配置轻量级配置中心</a> 进行下载、启动及配置。推荐使用最新版本。</p>
+<ul>
+<li>下载 <a href="http://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz?spm=a2c4g.11186623.2.18.4fa073571VPegl&file=apache-maven-3.6.0-bin.tar.gz" target="_blank" rel="noopener">Maven</a> 并设置环境变量（本地已安装的可略过）。</li>
+</ul>
+<h4 id="创建服务提供者"><a href="#创建服务提供者" class="headerlink" title="创建服务提供者"></a>创建服务提供者</h4><ol>
+<li>创建一个 Spring Boot 工程，命名为 spring-boot-dubbo-provider。</li>
+</ol>
+<p>这里我们以 Spring Boot 2.0.6.RELEASE 为例，在 pom.xml 文件中加入如下内容。</p>
+<p><dependencymanagement>       <dependencies>           <dependency>               <groupid>org.springframework.boot</groupid>               <artifactid>spring-boot-dependencies</artifactid>               <version>2.0.6.RELEASE</version>               <type>pom</type>               <scope>import</scope>           </dependency>       </dependencies>   </dependencymanagement>   <dependencies>       <dependency>           <groupid>org.springframework.boot</groupid>           <artifactid>spring-boot-starter-web</artifactid>       </dependency>       <dependency>           <groupid>org.springframework.boot</groupid>           <artifactid>spring-boot-actuator</artifactid>       </dependency>       <dependency>           <groupid>com.alibaba.boot</groupid>           <artifactid>dubbo-spring-boot-starter</artifactid>           <version>0.2.0</version>       </dependency>       <dependency>           <groupid>com.alibaba.edas</groupid>           <artifactid>edas-dubbo-extension</artifactid>           <version>1.0.0-SNAPSHOT</version>       </dependency>   </dependencies></p>
+<p>如果您需要选择使用 Spring Boot 1.x 的版本，请使用 Spring Boot 1.5.x 版本，对应的 com.alibaba.boot:dubbo-spring-boot-starter 版本为 0.1.0。</p>
+<p><strong>说明：</strong> Spring Boot 1.x 版本的生命周期即将在 2019 年 8 月 结束，推荐使用新版本开发您的应用。</p>
+<p>2.开发 Dubbo 服务提供者</p>
+<p>2.1 Dubbo 中服务都是以接口的形式提供的。因此需要开发一个接口，例如这里的 <strong>IHelloService</strong>，接口里有若干个可被调用的方法，例如这里的 <strong>SayHello</strong> 方法。</p>
+<p><code>package com.alibaba.edas.boot;    public interface IHelloService {    String sayHello(String str);}</code></p>
+<p>2.2 在服务提供方，需要实现所有以接口形式暴露的服务接口。例如这里实现 <strong>IHelloService</strong> 接口的类为 <strong>HelloServiceImpl</strong>。</p>
+<p><code>package com.alibaba.edas.boot;    import com.alibaba.dubbo.config.annotation.Service;        @Service    public class HelloServiceImpl implements IHelloService {            public String sayHello(String name) {            return &quot;Hello, &quot; + name + &quot; (from Dubbo with Spring Boot)&quot;;        }        }    ```                **说明：** 这里的 Service 注解式 Dubbo 提供的一个注解类，类的全名称为：**com.alibaba.dubbo.config.annotation.Service** 。  2.3 配置 Dubbo 服务。在 application.properties/application.yaml 配置文件中新增以下配置：      ```properties    # Base packages to scan Dubbo Components (e.g @Service , @Reference)    dubbo.scan.basePackages=com.alibaba.edas.boot    dubbo.application.name=dubbo-provider-demo    dubbo.registry.address=edas://127.0.0.1:8080    ```            **说明：**     * 以上三个配置没有默认值，必须要给出具体的配置。* dubbo.scan.basePackages 的值是开发的代码中含有 com.alibaba.dubbo.config.annotation.Service 和  com.alibaba.dubbo.config.annotation.Reference 注解所在的包。多个包之间用逗号隔开。* dubbo.registry.address 的值前缀必须是一个 **edas://** 开头，后面的ip地址和端口指的是轻量版配置中心3.开发并启动 Spring Boot 入口类        ```java    package com.alibaba.edas.boot;    import org.springframework.boot.SpringApplication;    import org.springframework.boot.autoconfigure.SpringBootApplication;        @SpringBootApplication    public class DubboProvider {            public static void main(String[] args) {                SpringApplication.run(DubboProvider.class, args);        }        }</code></p>
+<p>4.登录轻量版配置中心控制台 <a href="http://127.0.0.1:8080，在左侧导航栏中单击服务列表/" target="_blank" rel="noopener">http://127.0.0.1:8080，在左侧导航栏中单击服务列表</a> ，查看提供者列表。可以看到服务提供者里已经包含了 com.alibaba.edas.IHelloService，且可以查询该服务的服务分组和提供者 IP。</p>
+<h4 id="创建服务消费者"><a href="#创建服务消费者" class="headerlink" title="创建服务消费者"></a>创建服务消费者</h4><ol>
+<li>创建一个 Spring Boot 工程，命名为 spring-boot-dubbo-</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+	
+	<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/测试6/" rel="tag"><i class="fa fa-tag"></i> 测试6</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/28/测试5/" rel="next" title="测试5">
+                  <i class="fa fa-chevron-left"></i> 测试5
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+	  
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+	  
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用-Spring-Boot-开发-Dubbo-应用"><span class="nav-number">1.</span> <span class="nav-text">为什么使用 Spring Boot 开发 Dubbo 应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#为什么使用-EDAS-服务注册中心"><span class="nav-number">2.</span> <span class="nav-text">为什么使用 EDAS 服务注册中心</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#本地开发"><span class="nav-number">3.</span> <span class="nav-text">本地开发</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#准备工作"><span class="nav-number">3.1.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建服务提供者"><span class="nav-number">3.2.</span> <span class="nav-text">创建服务提供者</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#创建服务消费者"><span class="nav-number">3.3.</span> <span class="nav-text">创建服务消费者</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">pangadam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yourname" title="GitHub &rarr; https://github.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:pangadam@163.com" title="E-Mail &rarr; mailto:pangadam@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com/yourname" title="Weibo &rarr; https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pangadam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a></div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

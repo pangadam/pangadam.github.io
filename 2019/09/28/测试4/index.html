@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+  <link rel="alternate" href="/atom.xml" title="程序员杂碎念" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":"ture","trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="减少故障的最好方法就是让故障经常性的发生。通过不断重复失败过程，持续提升系统的容错和弹性能力。那么，实施一次高效的混沌工程实验，需要几步呢？答案：2 步。① 登陆https://github.com/chaosblade-io/chaosblade② 下载 release 版本，打造故障演练专属工具- 正文开始 -">
+<meta name="keywords" content="测试4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="测试4">
+<meta property="og:url" content="http://www.pangadam.com/2019/09/28/测试4/index.html">
+<meta property="og:site_name" content="程序员杂碎念">
+<meta property="og:description" content="减少故障的最好方法就是让故障经常性的发生。通过不断重复失败过程，持续提升系统的容错和弹性能力。那么，实施一次高效的混沌工程实验，需要几步呢？答案：2 步。① 登陆https://github.com/chaosblade-io/chaosblade② 下载 release 版本，打造故障演练专属工具- 正文开始 -">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-09-28T11:25:30.451Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="测试4">
+<meta name="twitter:description" content="减少故障的最好方法就是让故障经常性的发生。通过不断重复失败过程，持续提升系统的容错和弹性能力。那么，实施一次高效的混沌工程实验，需要几步呢？答案：2 步。① 登陆https://github.com/chaosblade-io/chaosblade② 下载 release 版本，打造故障演练专属工具- 正文开始 -">
+  <link rel="canonical" href="http://www.pangadam.com/2019/09/28/测试4/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>测试4 | 程序员杂碎念</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员杂碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://www.pangadam.com/2019/09/28/测试4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="pangadam">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员杂碎念">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">测试4
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-28 19:02:13 / 修改时间：19:25:30" itemprop="dateCreated datePublished" datetime="2019-09-28T19:02:13+08:00">2019-09-28</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/分类测试/" itemprop="url" rel="index"><span itemprop="name">分类测试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>减少故障的最好方法就是让故障经常性的发生。通过不断重复失败过程，持续提升系统的容错和弹性能力。</p><p>那么，实施一次高效的混沌工程实验，需要几步呢？</p><p>答案：2 步。</p><p>① 登陆</p><p><a href="https://github.com/chaosblade-io/chaosblade" target="_blank" rel="noopener">https://github.com/chaosblade-io/chaosblade</a></p><p>② 下载 release 版本，打造故障演练专属工具</p><p>- 正文开始 -</p><a id="more"></a>
+
+
+
+
+
+
+<p>高可用架构是保障服务稳定性的核心。</p>
+<p>阿里巴巴在海量互联网服务以及历年双11场景的实践过程中，沉淀出了包括全链路压测、线上流量管控、故障演练等高可用核心技术，并通过开源和云上服务的形式对外输出，以帮助企业用户和开发者享受阿里巴巴的技术红利，提高开发效率，缩短业务的构建流程。</p>
+<p>例如，借助阿里云性能测试 PTS，高效率构建全链路压测体系，通过开源组件 Sentinel 实现限流和降级功能。这一次，经历了 6 年时间的改进和实践，累计在线上执行演练场景达数万次，我们将阿里巴巴在故障演练领域的创意和实践，浓缩成一个混沌工程工具，并将其开源，命名为 ChaosBlade。</p>
+<h2 id="ChaosBlade-是什么"><a href="#ChaosBlade-是什么" class="headerlink" title="ChaosBlade 是什么"></a>ChaosBlade 是什么</h2><p>ChaosBlade 是一款遵循混沌工程实验原理，提供丰富故障场景实现，帮助分布式系统提升容错性和可恢复性的混沌工程工具，可实现底层故障的注入，特点是操作简洁、无侵入、扩展性强。</p>
+<p>ChaosBlade 基于 Apache License v2.0 开源协议，目前有 chaosblade 和 chaosblade-exe-jvm 两个仓库。</p>
+<p>chaosblade 包含 CLI 和使用 Golang 实现的基础资源、容器相关的混沌实验实施执行模块。chaosblade-exe-jvm 是对运行在 JVM 上的应用实施混沌实验的执行器。</p>
+<p>ChaosBlade 社区后续还会添加 C++、Node.js 等其他语言的混沌实验执行器。</p>
+<p>更多内容，参见项目及 Demo 体验地址：</p>
+<p><a href="https://github.com/chaosblade-io" target="_blank" rel="noopener">https://github.com/chaosblade-io</a></p>
+<h2 id="为什么要开源"><a href="#为什么要开源" class="headerlink" title="为什么要开源"></a>为什么要开源</h2><p>很多公司已经开始关注并探索混沌工程，渐渐成为测试系统高可用，构建对系统信息不可缺少的工具。但混沌工程领域目前还处于一个快速演进的阶段，最佳实践和工具框架没有统一标准。实施混沌工程可能会带来一些潜在的业务风险，经验和工具的缺失也将进一步阻止 DevOps 人员实施混沌工程。</p>
+<p>混沌工程领域目前也有很多优秀的开源工具，分别覆盖某个领域，但这些工具的使用方式千差万别，其中有些工具上手难度大，学习成本高，混沌实验能力单一，使很多人对混沌工程领域望而却步。</p>
+<p>阿里巴巴集团在混沌工程领域已经实践多年，将混沌实验工具 ChaosBlade 开源目的，是为了：</p>
+<ul>
+<li>让更多人了解并加入到混沌工程领域；</li>
+<li>缩短构建混沌工程的路径；</li>
+<li>同时依靠社区的力量，完善更多的混沌实验场景，共同推进混沌工程领域的发展。</li>
+</ul>
+<h2 id="ChaosBlade-能解决哪些问题"><a href="#ChaosBlade-能解决哪些问题" class="headerlink" title="ChaosBlade 能解决哪些问题"></a>ChaosBlade 能解决哪些问题</h2><h3 id="衡量微服务的容错能力"><a href="#衡量微服务的容错能力" class="headerlink" title="衡量微服务的容错能力"></a>衡量微服务的容错能力</h3><p>通过模拟调用延迟、服务不可用、机器资源满载等，查看发生故障的节点或实例是否被自动隔离、下线，流量调度是否正确，预案是否有效，同时观察系统整体的 QPS 或 RT 是否受影响。在此基础上可以缓慢增加故障节点范围，验证上游服务限流降级、熔断等是否有效。最终故障节点增加到请求服务超时，估算系统容错红线，衡量系统容错能力。</p>
+<h3 id="验证容器编排配置是否合理"><a href="#验证容器编排配置是否合理" class="headerlink" title="验证容器编排配置是否合理"></a>验证容器编排配置是否合理</h3><p>通过模拟杀服务 Pod、杀节点、增大 Pod 资源负载，观察系统服务可用性，验证副本配置、资源限制配置以及 Pod 下部署的容器是否合理。</p>
+<h3 id="测试-PaaS-层是否健壮"><a href="#测试-PaaS-层是否健壮" class="headerlink" title="测试 PaaS 层是否健壮"></a>测试 PaaS 层是否健壮</h3><p>通过模拟上层资源负载，验证调度系统的有效性；模拟依赖的分布式存储不可用，验证系统的容错能力；模拟调度节点不可用，测试调度任务是否自动迁移到可用节点；模拟主备节点故障，测试主备切换是否正常。</p>
+<h3 id="验证监控告警的时效性"><a href="#验证监控告警的时效性" class="headerlink" title="验证监控告警的时效性"></a>验证监控告警的时效性</h3><p>通过对系统注入故障，验证监控指标是否准确，监控维度是否完善，告警阈值是否合理，告警是否快速，告警接收人是否正确，通知渠道是否可用等，提升监控告警的准确和时效性。</p>
+<h3 id="定位与解决问题的应急能力"><a href="#定位与解决问题的应急能力" class="headerlink" title="定位与解决问题的应急能力"></a>定位与解决问题的应急能力</h3><p>通过故障突袭，随机对系统注入故障，考察相关人员对问题的应急能力，以及问题上报、处理流程是否合理，达到以战养战，锻炼人定位与解决问题的能力。</p>
+<h2 id="功能和特点"><a href="#功能和特点" class="headerlink" title="功能和特点"></a>功能和特点</h2><h3 id="场景丰富度高"><a href="#场景丰富度高" class="headerlink" title="场景丰富度高"></a>场景丰富度高</h3><p>ChaosBlade 支持的混沌实验场景不仅覆盖基础资源，如 CPU 满载、磁盘 IO 高、网络延迟等，还包括运行在 JVM 上的应用实验场景，如 Dubbo 调用超时和调用异常、指定方法延迟或抛异常以及返回特定值等，同时涉及容器相关的实验，如杀容器、杀 Pod。后续会持续的增加实验场景。</p>
+<h3 id="使用简洁，易于理解"><a href="#使用简洁，易于理解" class="headerlink" title="使用简洁，易于理解"></a>使用简洁，易于理解</h3><p>ChaosBlade 通过 CLI 方式执行，具有友好的命令提示功能，可以简单快速的上手使用。命令的书写遵循阿里巴巴集团内多年故障测试和演练实践抽象出的故障注入模型，层次清晰，易于阅读和理解，降低了混沌工程实施的门槛。</p>
+<h3 id="场景扩展方便"><a href="#场景扩展方便" class="headerlink" title="场景扩展方便"></a>场景扩展方便</h3><p>所有的 ChaosBlade 实验执行器同样遵循上述提到的故障注入模型，使实验场景模型统一，便于开发和维护。模型本身通俗易懂，学习成本低，可以依据模型方便快捷的扩展更多的混沌实验场景。</p>
+<h2 id="ChaosBlade-的演进史"><a href="#ChaosBlade-的演进史" class="headerlink" title="ChaosBlade 的演进史"></a>ChaosBlade 的演进史</h2><ul>
+<li>EOS（2012-2015）：</li>
+</ul>
+<p>故障演练平台的早期版本，故障注入能力通过字节码增强方式实现，模拟常见的 RPC 故障，解决微服务的强弱依赖治理问题。</p>
+<ul>
+<li>MonkeyKing（2016-2018）：</li>
+</ul>
+<p>故障演练平台的升级版本，丰富了故障场景（如：资源、容器层场景），开始在生产环境进行一些规模化的演练。</p>
+<ul>
+<li>AHAS（2018.9-至今）：</li>
+</ul>
+<p>阿里云应用高可用服务，内置演练平台的全部功能，支持可编排演练、演练插件扩展等能力，并整合了架构感知和限流降级的功能。</p>
+<ul>
+<li>ChaosBlade（2019.3）：</li>
+</ul>
+<p>是 MonkeyKing 平台底层故障注入的实现工具，通过对演练平台底层的故障注入能力进行抽象，定义了一套故障模型。配合用户友好的 CLI 工具进行开源，帮助云原生用户进行混沌工程测试。</p>
+<h2 id="近期规划"><a href="#近期规划" class="headerlink" title="近期规划"></a>近期规划</h2>
+    </div>
+
+    
+    
+    
+	
+	<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/测试4/" rel="tag"><i class="fa fa-tag"></i> 测试4</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/28/测试3/" rel="next" title="测试3">
+                  <i class="fa fa-chevron-left"></i> 测试3
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/28/测试5/" rel="prev" title="测试5">
+                  测试5 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+	  
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+	  
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#ChaosBlade-是什么"><span class="nav-number">1.</span> <span class="nav-text">ChaosBlade 是什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么要开源"><span class="nav-number">2.</span> <span class="nav-text">为什么要开源</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ChaosBlade-能解决哪些问题"><span class="nav-number">3.</span> <span class="nav-text">ChaosBlade 能解决哪些问题</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#衡量微服务的容错能力"><span class="nav-number">3.1.</span> <span class="nav-text">衡量微服务的容错能力</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证容器编排配置是否合理"><span class="nav-number">3.2.</span> <span class="nav-text">验证容器编排配置是否合理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#测试-PaaS-层是否健壮"><span class="nav-number">3.3.</span> <span class="nav-text">测试 PaaS 层是否健壮</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证监控告警的时效性"><span class="nav-number">3.4.</span> <span class="nav-text">验证监控告警的时效性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定位与解决问题的应急能力"><span class="nav-number">3.5.</span> <span class="nav-text">定位与解决问题的应急能力</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#功能和特点"><span class="nav-number">4.</span> <span class="nav-text">功能和特点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#场景丰富度高"><span class="nav-number">4.1.</span> <span class="nav-text">场景丰富度高</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用简洁，易于理解"><span class="nav-number">4.2.</span> <span class="nav-text">使用简洁，易于理解</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#场景扩展方便"><span class="nav-number">4.3.</span> <span class="nav-text">场景扩展方便</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ChaosBlade-的演进史"><span class="nav-number">5.</span> <span class="nav-text">ChaosBlade 的演进史</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#近期规划"><span class="nav-number">6.</span> <span class="nav-text">近期规划</span></a></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">pangadam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yourname" title="GitHub &rarr; https://github.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:pangadam@163.com" title="E-Mail &rarr; mailto:pangadam@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com/yourname" title="Weibo &rarr; https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pangadam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a></div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>

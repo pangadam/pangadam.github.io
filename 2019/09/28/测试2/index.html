@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+
+
+
+
+
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.9.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=7.4.0">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=7.4.0">
+  <link rel="mask-icon" href="/images/logo.svg?v=7.4.0" color="#222">
+  <link rel="alternate" href="/atom.xml" title="程序员杂碎念" type="application/atom+xml">
+
+<link rel="stylesheet" href="/css/main.css?v=7.4.0">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css?v=4.7.0">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '7.4.0',
+    exturl: false,
+    sidebar: {"position":"right","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":"ture","trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: 'search.xml',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '复制',
+      copy_success: '复制成功',
+      copy_failure: '复制失败'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="如何像参与开源那样，去参与一款 IDE 插件的设计？作为一款 IDE 插件的使用者，我是否能决定下一个版本的功能？自从产品经理银时小伙和他的开发小哥们在去年12月发布 Cloud Toolkit（一款 IDE 插件）以来，已帮助数以万计的开发者们提高了业务的部署效率。期间，开发者们不仅是 Cloud Toolkit 的使用者，同时也作为设计者参与了插件的更新迭代。">
+<meta name="keywords" content="测试2">
+<meta property="og:type" content="article">
+<meta property="og:title" content="测试2">
+<meta property="og:url" content="http://www.pangadam.com/2019/09/28/测试2/index.html">
+<meta property="og:site_name" content="程序员杂碎念">
+<meta property="og:description" content="如何像参与开源那样，去参与一款 IDE 插件的设计？作为一款 IDE 插件的使用者，我是否能决定下一个版本的功能？自从产品经理银时小伙和他的开发小哥们在去年12月发布 Cloud Toolkit（一款 IDE 插件）以来，已帮助数以万计的开发者们提高了业务的部署效率。期间，开发者们不仅是 Cloud Toolkit 的使用者，同时也作为设计者参与了插件的更新迭代。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img.alicdn.com/tfs/TB1B8fRebus3KVjSZKbXXXqkFXa-4032-3024.jpg">
+<meta property="og:image" content="http://kirito.iocoder.cn/image-20190602181059808.png">
+<meta property="og:image" content="http://kirito.iocoder.cn/image-20190602181758619.png">
+<meta property="og:image" content="http://kirito.iocoder.cn/image-20190602181934176.png">
+<meta property="og:image" content="http://kirito.iocoder.cn/image-20190602182411907.png">
+<meta property="og:image" content="http://kirito.iocoder.cn/image-20190602183827891.png">
+<meta property="og:image" content="http://kirito.iocoder.cn/image-20190602185551351.png">
+<meta property="og:image" content="http://kirito.iocoder.cn/image-20190602190651881.png">
+<meta property="og:updated_time" content="2019-09-28T11:24:18.581Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="测试2">
+<meta name="twitter:description" content="如何像参与开源那样，去参与一款 IDE 插件的设计？作为一款 IDE 插件的使用者，我是否能决定下一个版本的功能？自从产品经理银时小伙和他的开发小哥们在去年12月发布 Cloud Toolkit（一款 IDE 插件）以来，已帮助数以万计的开发者们提高了业务的部署效率。期间，开发者们不仅是 Cloud Toolkit 的使用者，同时也作为设计者参与了插件的更新迭代。">
+<meta name="twitter:image" content="https://img.alicdn.com/tfs/TB1B8fRebus3KVjSZKbXXXqkFXa-4032-3024.jpg">
+  <link rel="canonical" href="http://www.pangadam.com/2019/09/28/测试2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>测试2 | 程序员杂碎念</title>
+  
+
+
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .logo,
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员杂碎念</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <button aria-label="切换导航栏">
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+      
+      
+      
+        
+        <li class="menu-item menu-item-home">
+      
+    
+
+    <a href="/" rel="section"><i class="menu-item-icon fa fa-fw fa-home"></i> <br>首页</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-tags">
+      
+    
+
+    <a href="/tags/" rel="section"><i class="menu-item-icon fa fa-fw fa-tags"></i> <br>标签</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-categories">
+      
+    
+
+    <a href="/categories/" rel="section"><i class="menu-item-icon fa fa-fw fa-th"></i> <br>分类</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-archives">
+      
+    
+
+    <a href="/archives/" rel="section"><i class="menu-item-icon fa fa-fw fa-archive"></i> <br>归档</a>
+
+  </li>
+      
+      
+      
+        
+        <li class="menu-item menu-item-about">
+      
+    
+
+    <a href="/about/" rel="section"><i class="menu-item-icon fa fa-fw fa-user"></i> <br>关于</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a href="javascript:;" class="popup-trigger">
+        
+          <i class="menu-item-icon fa fa-search fa-fw"></i> <br>搜索</a>
+      </li>
+    
+  </ul>
+
+    
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocorrect="off" autocapitalize="none"
+           placeholder="搜索..." spellcheck="false"
+           type="text" id="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result"></div>
+
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+      <article itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block post">
+    <link itemprop="mainEntityOfPage" href="http://www.pangadam.com/2019/09/28/测试2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="pangadam">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员杂碎念">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">测试2
+
+          
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              
+                
+              
+
+              <time title="创建时间：2019-09-28 19:02:04 / 修改时间：19:24:18" itemprop="dateCreated datePublished" datetime="2019-09-28T19:02:04+08:00">2019-09-28</time>
+            </span>
+          
+            
+
+            
+          
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/分类测试/" itemprop="url" rel="index"><span itemprop="name">分类测试</span></a></span>
+
+                
+                
+              
+            </span>
+          
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>如何像参与开源那样，去参与一款 IDE 插件的设计？</p><p>作为一款 IDE 插件的使用者，我是否能决定下一个版本的功能？</p><p><a href="https://img.alicdn.com/tfs/TB1B8fRebus3KVjSZKbXXXqkFXa-4032-3024.jpg" target="_blank" rel="noopener"><img src="https://img.alicdn.com/tfs/TB1B8fRebus3KVjSZKbXXXqkFXa-4032-3024.jpg" alt="img"></a></p><p>自从产品经理银时小伙和他的开发小哥们在去年12月发布 <a href="https://cn.aliyun.com/product/cloudtoolkit?spm=5176.8142029.developerService.12.4cf36d3e6GiMCs" target="_blank" rel="noopener">Cloud Toolkit</a>（一款 IDE 插件）以来，已帮助数以万计的开发者们提高了业务的部署效率。期间，开发者们不仅是 Cloud Toolkit 的使用者，同时也作为设计者参与了插件的更新迭代。</p><a id="more"></a>
+
+
+
+<p>本文来自开发者徐靖峰，分享了他和 Cloud Toolkit 的故事</p>
+<h2 id="遇见-Cloud-Toolkit"><a href="#遇见-Cloud-Toolkit" class="headerlink" title="遇见 Cloud Toolkit"></a>遇见 Cloud Toolkit</h2><p>在与中间件小姐姐的一次聊天中，偶然间了解到这款插件，小姐姐跟我提到自己正在运营一款 IDE 开发者工具，能够使开发部署效率提高 8 倍，出于好奇心，我就上手体验了一下，看看究竟是一个什么样的产品。使用了一段时间之后，便迫不及待地向小姐姐分享了我作为开发者对插件的一些看法。</p>
+<p>我对这款产品最直观的感受：这是一款发布工具，帮助用户在 IDE 中直接打包应用并部署到各种终端。一开始看到这款产品位于阿里云的页面中，原本以为是一款和阿里云服务强绑定的产品，但试用过后才发现，即使对于普通的云主机，也非常适用，还可以解决很多开发运维的痛点，非阿里云用户可以放心使用。</p>
+<h2 id="在-Cloud-Toolkit-出现之前"><a href="#在-Cloud-Toolkit-出现之前" class="headerlink" title="在 Cloud Toolkit 出现之前"></a>在 Cloud Toolkit 出现之前</h2><p>作为一个 Java 程序员，我们大多数会在 Intellij IDEA 中基于 SpringBoot 来开发 WEB 应用，所以本文中的测评将会基于以下几个架构来构建：</p>
+<ul>
+<li>开发环境：IDEA</li>
+<li>项目组织方式：Maven</li>
+<li>开发框架：SpringBoot</li>
+</ul>
+<p>在接触 Cloud Toolkit 之前，用什么方法来部署一个 SpringBoot 应用呢？作为一个偏正经的测评人员，我不会为了凸显出 Cloud Toolkit 的强大而去翻出一些上古的部署工具来做对比，而是直接使用 Intellij IDEA 的内置功能与之对比。</p>
+<h3 id="第一步：配置服务器信息"><a href="#第一步：配置服务器信息" class="headerlink" title="第一步：配置服务器信息"></a>第一步：配置服务器信息</h3><p><a href="http://kirito.iocoder.cn/image-20190602181059808.png" target="_blank" rel="noopener"><img src="http://kirito.iocoder.cn/image-20190602181059808.png" alt="Deployment 插件"></a>Deployment 插件</p>
+<p>在 <code>Tools -&gt; Deployment</code> 中找到 IDEA 对项目部署支持的内置插件，我们可以在其中进行服务器信息的配置，包括服务器地址和权限认证，并且在 Mapping 选项卡中完成本地工程与服务器路径的映射。</p>
+<h3 id="第二步：配置-Maven-打包插件"><a href="#第二步：配置-Maven-打包插件" class="headerlink" title="第二步：配置 Maven 打包插件"></a>第二步：配置 Maven 打包插件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;build&gt;    &lt;plugins&gt;        &lt;plugin&gt;            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;            &lt;artifactId&gt;spring-boot-maven-plugin&lt;/artifactId&gt;        &lt;/plugin&gt;    &lt;/plugins&gt;&lt;/build&gt;</span><br></pre></td></tr></table></figure>
+
+<p>由于是 SpringBoot 应用，配置专用的打包插件后，可以将整个工程打成一个 fatjar，示例工程非常简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@SpringBootApplication@RestControllerpublic class Application &#123;    public static void main(String[] args) &#123;        SpringApplication.run(Application.class, args);    &#125;    @RequestMapping(&quot;/hello&quot;)    public String hello() &#123;        return &quot;hello world~~~~~~~~~~~~~~~~&quot;;    &#125;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>之后，只要执行 install，即可得到一个可运行的 jar 包：</p>
+<p><a href="http://kirito.iocoder.cn/image-20190602181758619.png" target="_blank" rel="noopener"><img src="http://kirito.iocoder.cn/image-20190602181758619.png" alt="打包"></a>打包</p>
+<h3 id="第三步：部署-jar-包"><a href="#第三步：部署-jar-包" class="headerlink" title="第三步：部署 jar 包"></a>第三步：部署 jar 包</h3><p><a href="http://kirito.iocoder.cn/image-20190602181934176.png" target="_blank" rel="noopener"><img src="http://kirito.iocoder.cn/image-20190602181934176.png" alt="部署"></a>部署</p>
+<p>由于我们在第一步已经配置过项目路径与服务器路径的映射，可以选择直接对 fatjar 右键，upload 到远程服务器上。</p>
+<h3 id="第四步：启动应用"><a href="#第四步：启动应用" class="headerlink" title="第四步：启动应用"></a>第四步：启动应用</h3><p><a href="http://kirito.iocoder.cn/image-20190602182411907.png" target="_blank" rel="noopener"><img src="http://kirito.iocoder.cn/image-20190602182411907.png" alt="启动"></a>启动</p>
+<p>上图中展示的是 IDEA 中两个非常棒的内置功能，可以在 <code>Tools -&gt; Start SSH session</code> 中开启远程服务器的终端，在 IDEA 下方可以执行远程指令；也可以在 <code>Tools -&gt; Deployment -&gt;Browse Remote Host</code> 中展开如图右侧的结构，可视化地浏览服务器上的文件列表，检查应用是否部署成功。</p>
+<p>在远程终端中，找到对应的 fatjar，执行 <code>java -jar spring-demo-1.0-SNAPSHOT.jar</code> 便完成了整个部署流程。</p>
+<h3 id="IDEA-内置插件总结"><a href="#IDEA-内置插件总结" class="headerlink" title="IDEA 内置插件总结"></a>IDEA 内置插件总结</h3><p>IDEA 内置插件已经提供了相当强大的能力，整个部署过程我们完全没有离开 IDEA！避免了频繁切换窗口，装各种部署工具，可以说已经很方便了，Cloud Toolkit 必须要比这个部署过程做的更加强大才行，那下面就让我们来体验下 Cloud Toolkit 是怎么优化的吧。</p>
+<h2 id="Cloud-Toolkit-初体验"><a href="#Cloud-Toolkit-初体验" class="headerlink" title="Cloud Toolkit 初体验"></a>Cloud Toolkit 初体验</h2><p>我们不急着用 Cloud Toolkit 来部署应用。虽然笔者是一位开发者，但还是从产品的角度来研究下它的菜单项，看看它的产品定位。IDEA 安装插件的过程省略，详情可以参考<a href="https://mp.weixin.qq.com/s?__biz=MzU4NzU0MDIzOQ==&mid=2247485842&idx=1&sn=18489e421ddc25b5cc38ca2283836687&chksm=fdeb3bf2ca9cb2e451e20359b5b29347d1389736eed336813eb222cc921a1ccee1c95b34855d&token=2133191254&lang=zh_CN#rd" target="_blank" rel="noopener">《IDE 插件新版发布 | 支持更多场景，开发效率更“biu”了》</a>。</p>
+<p><a href="http://kirito.iocoder.cn/image-20190602183827891.png" target="_blank" rel="noopener"><img src="http://kirito.iocoder.cn/image-20190602183827891.png" alt="多种部署方式"></a>多种部署方式</p>
+<p>其他菜单项暂且抛到一边，这 5 个核心能力应该就是 Cloud Toolkit 的核心了。</p>
+<p>即使作为一个插件小白，应该也能够望名知意，猜到这几个菜单对应的功能：</p>
+<ul>
+<li>Deploy to Host：部署到任意服务器。这一个功能决定了 Cloud Toolkit 强大的之处就是可以使得每个开发者受益，它其实并不是和阿里云厂商强绑定的。我会在下文重点测评下这个功能。</li>
+<li>Deploy to ECS：这里的 ECS 指的阿里云的 ECS，如果你的服务部署在阿里云 ECS 上，可以选择使用这个功能，获得比 Deploy to Host 更加丰富的功能。在下文我也会简单测评下这个功能。</li>
+<li>Deploy to EDAS &amp; EDAS Serverless：EDAS &amp; EDAS Serverless 是阿里云提供的分布式服务治理服务，可以理解为商业版的 Dubbo，具有强大的服务治理、服务调度能力，Cloud Toolkit 对 EDAS 做了个性化的部署支持，让使用者无需登录控制台，在 IDEA 中即可完成 EDAS 的部署。</li>
+<li>Deploy to CS K8S：在云原生时代，很多应用使用容器化的方式进行部署，Cloud Toolkit 这一点做的还是不错的，已经具备了容器化部署的能力，具有一定的前瞻性。</li>
+</ul>
+<p>其实从简单的功能介绍就可以看出，Cloud Toolkit 相比 IDEA 内置的部署能力的确是高出一大截了，甚至可以说，Deploy to Host 这一能力完全就可以覆盖 IDEA 插件的所有能力，并且对流程还进行了一些简化。下面我重点测评下 Deploy to Host 这一能力，与之前的部署流程进行一个对比。</p>
+<h2 id="使用-Cloud-Toolkit-把应用部署到任意服务器"><a href="#使用-Cloud-Toolkit-把应用部署到任意服务器" class="headerlink" title="使用 Cloud Toolkit 把应用部署到任意服务器"></a>使用 Cloud Toolkit 把应用部署到任意服务器</h2><p><a href="http://kirito.iocoder.cn/image-20190602185551351.png" target="_blank" rel="noopener"><img src="http://kirito.iocoder.cn/image-20190602185551351.png" alt="Deploy to Host"></a>Deploy to Host</p>
+<p>上图展示的 Deploy to Host 功能的配置项，实际上涵盖了以下几点：</p>
+<ul>
+<li>远程服务器配置</li>
+<li>部署方式：Maven 构建，直接上传文件（目前还不支持 Gradle 构建，可能在后续的版本会支持）</li>
+<li>本地文件与服务器路径的映射配置</li>
+<li>启动脚本的集成</li>
+</ul>
+<h3 id="账号管理"><a href="#账号管理" class="headerlink" title="账号管理"></a>账号管理</h3><p>SSH 登录账户可以在 <code>Preferences -&gt; Alibaba Cloud Toolkit -&gt; SSH Profile</code> 中管理，找不到也没关系，需要设置的时候一般都会有超链接跳转，这点做得很人性化。</p>
+<p><a href="http://kirito.iocoder.cn/image-20190602190651881.png" target="_blank" rel="noopener"><img src="http://kirito.iocoder.cn/image-20190602190651881.png" alt="SSH 账号管理"></a></p>
+
+    </div>
+
+    
+    
+    
+	
+	<div>
+  
+    <div>
+    
+        <div style="text-align:center;color: #ccc;font-size:14px;">-------------本文结束<i class="fa fa-paw"></i>感谢您的阅读-------------</div>
+    
+</div>
+  
+</div>
+        
+      
+
+      <footer class="post-footer">
+          
+            
+          
+          <div class="post-tags">
+            
+              <a href="/tags/测试2/" rel="tag"><i class="fa fa-tag"></i> 测试2</a>
+            
+          </div>
+        
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+              
+                <a href="/2019/09/28/测试1/" rel="next" title="测试1">
+                  <i class="fa fa-chevron-left"></i> 测试1
+                </a>
+              
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+              
+                <a href="/2019/09/28/测试3/" rel="prev" title="测试3">
+                  测试3 <i class="fa fa-chevron-right"></i>
+                </a>
+              
+            </div>
+          </div>
+        
+      </footer>
+    
+  </div>
+  
+  
+  
+  </article>
+
+  </div>
+
+
+          </div>
+          
+
+        </div>
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+        
+        
+        
+        
+      
+	  
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+	  
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#遇见-Cloud-Toolkit"><span class="nav-number">1.</span> <span class="nav-text">遇见 Cloud Toolkit</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#在-Cloud-Toolkit-出现之前"><span class="nav-number">2.</span> <span class="nav-text">在 Cloud Toolkit 出现之前</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步：配置服务器信息"><span class="nav-number">2.1.</span> <span class="nav-text">第一步：配置服务器信息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步：配置-Maven-打包插件"><span class="nav-number">2.2.</span> <span class="nav-text">第二步：配置 Maven 打包插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步：部署-jar-包"><span class="nav-number">2.3.</span> <span class="nav-text">第三步：部署 jar 包</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第四步：启动应用"><span class="nav-number">2.4.</span> <span class="nav-text">第四步：启动应用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA-内置插件总结"><span class="nav-number">2.5.</span> <span class="nav-text">IDEA 内置插件总结</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Cloud-Toolkit-初体验"><span class="nav-number">3.</span> <span class="nav-text">Cloud Toolkit 初体验</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用-Cloud-Toolkit-把应用部署到任意服务器"><span class="nav-number">4.</span> <span class="nav-text">使用 Cloud Toolkit 把应用部署到任意服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#账号管理"><span class="nav-number">4.1.</span> <span class="nav-text">账号管理</span></a></li></ol></li></ol></div>
+        
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">pangadam</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+  <nav class="site-state motion-element">
+      <div class="site-state-item site-state-posts">
+        
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-categories">
+        
+          
+            <a href="/categories/">
+          
+        
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span>
+        </a>
+      </div>
+    
+      
+      
+      <div class="site-state-item site-state-tags">
+        
+          
+            <a href="/tags/">
+          
+        
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+        </a>
+      </div>
+    
+  </nav>
+  <div class="feed-link motion-element">
+    <a href="/atom.xml" rel="alternate">
+      <i class="fa fa-rss"></i>RSS
+    </a>
+  </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://github.com/yourname" title="GitHub &rarr; https://github.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="mailto:pangadam@163.com" title="E-Mail &rarr; mailto:pangadam@163.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+    
+      <span class="links-of-author-item">
+      
+      
+        
+      
+      
+        
+      
+        <a href="https://weibo.com/yourname" title="Weibo &rarr; https://weibo.com/yourname" rel="noopener" target="_blank"><i class="fa fa-fw fa-weibo"></i>Weibo</a>
+      </span>
+    
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love" id="animate">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">pangadam</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> 强力驱动</div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">主题 – <a href="https://theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Muse</a></div>
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+
+
+  <script size="300" alpha="0.6" zIndex="-1" src="/lib/canvas-ribbon/canvas-ribbon.js"></script>
+  <script src="/lib/anime.min.js?v=3.1.0"></script>
+  <script src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  <script src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+<script src="/js/utils.js?v=7.4.0"></script><script src="/js/motion.js?v=7.4.0"></script>
+<script src="/js/schemes/muse.js?v=7.4.0"></script>
+<script src="/js/next-boot.js?v=7.4.0"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+  <script src="/js/local-search.js?v=7.4.0"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+  
+
+</body>
+</html>
